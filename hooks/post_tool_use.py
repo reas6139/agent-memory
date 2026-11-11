@@ -111,6 +111,9 @@ def compress_tool_output(tool_name: str, tool_input: dict, tool_output: str) -> 
 
 
 def main():
+    # Opt-in only: stay silent unless AGENT_MEMORY_ENABLED=1 (project rule: no self-recording).
+    if os.environ.get("AGENT_MEMORY_ENABLED") != "1":
+        sys.exit(0)
     try:
         raw = sys.stdin.read()
         if not raw.strip():

@@ -22,6 +22,9 @@ DATA_DIR = Path(os.environ.get("AGENT_MEMORY_DATA", os.environ.get("CLAUDE_PLUGI
 
 
 def main():
+    # Opt-in only: stay silent unless AGENT_MEMORY_ENABLED=1 (project rule: no self-recording).
+    if os.environ.get("AGENT_MEMORY_ENABLED") != "1":
+        sys.exit(0)
     try:
         project = os.environ.get("CLAUDE_PROJECT", Path.cwd().name)
         agent_id = os.environ.get("CLAUDE_AGENT_ID", "claude-code")
