@@ -12,6 +12,10 @@ import os
 import sys
 from pathlib import Path
 
+# Opt-in only, checked before any import so a missing dependency cannot print an error.
+if os.environ.get("AGENT_MEMORY_ENABLED") != "1":
+    sys.exit(0)
+
 # Use CLAUDE_PLUGIN_ROOT if available, fallback to relative path
 PLUGIN_ROOT = Path(os.environ.get("CLAUDE_PLUGIN_ROOT", Path(__file__).resolve().parent.parent))
 if str(PLUGIN_ROOT) not in sys.path:
